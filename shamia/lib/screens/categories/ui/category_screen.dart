@@ -57,6 +57,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 child: ListView.builder(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
+                                  itemCount: cubit.category!.length,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: BouncingScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) =>
                                           Container(
@@ -142,9 +145,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       ),
                                     ),
                                   ),
-                                  itemCount: cubit.category!.length,
-                                  scrollDirection: Axis.horizontal,
-                                  physics: BouncingScrollPhysics(),
                                 ),
                               ),
                               cubit.categoryItems == []
@@ -157,94 +157,98 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       child: NotificationListener(
                                         onNotification: cubit.onNotification,
                                         child: StatefulBuilder(
-                                            builder: (context, state) {
-                                          return Column(
-                                            children: [
-                                              cubit.isLaodingItemCategory
-                                                  ? CustomLoading()
-                                                  : Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                    10.0),
-                                                        child: GridView.builder(
-                                                          physics:
-                                                              BouncingScrollPhysics(),
-                                                          controller: cubit
-                                                              .scrollController,
-                                                          itemCount: cubit
-                                                              .categoryItems
-                                                              .length,
-                                                          gridDelegate:
-                                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                                  childAspectRatio:
-                                                                      .85,
-                                                                  // mainAxisExtent:
-                                                                  //     220.0,
-                                                                  crossAxisCount:
-                                                                      2),
+                                          builder: (context, state) {
+                                            return Column(
+                                              children: [
+                                                cubit.isLaodingItemCategory
+                                                    ? CustomLoading()
+                                                    : Expanded(
+                                                        child: Padding(
                                                           padding:
-                                                              EdgeInsets.only(
-                                                                  bottom: 80.0),
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int index) {
-                                                            return itemCard(
-                                                              context: context,
-                                                              id: cubit
-                                                                  .categoryItems[
-                                                                      index]
-                                                                  .id
-                                                                  .toString(),
-                                                              img: cubit
-                                                                      .categoryItems[
-                                                                          index]
-                                                                      .images
-                                                                      ?.first
-                                                                      .image ??
-                                                                  '',
-                                                              title: cubit
-                                                                  .categoryItems[
-                                                                      index]
-                                                                  .title
-                                                                  ?.ar,
-                                                              subTitle: cubit
-                                                                      .categoryItems[
-                                                                          index]
-                                                                      .description
-                                                                      ?.ar ??
-                                                                  '',
-                                                              price: cubit
-                                                                  .categoryItems[
-                                                                      index]
-                                                                  .price
-                                                                  .toString(),
-                                                              onTap: () {
-                                                                RouteManager
-                                                                    .navigateTo(
-                                                                  ItemDetailsScreen(
-                                                                    categoryItem:
-                                                                        cubit.categoryItems[
-                                                                            index],
-                                                                  ),
-                                                                );
-                                                              },
-                                                            );
-                                                          },
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      10.0),
+                                                          child:
+                                                              GridView.builder(
+                                                            physics:
+                                                                BouncingScrollPhysics(),
+                                                            controller: cubit
+                                                                .scrollController,
+                                                            itemCount: cubit
+                                                                .categoryItems
+                                                                .length,
+                                                            gridDelegate:
+                                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                                    childAspectRatio:
+                                                                        .85,
+                                                                    // mainAxisExtent:
+                                                                    //     220.0,
+                                                                    crossAxisCount:
+                                                                        2),
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    bottom:
+                                                                        80.0),
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              return itemCard(
+                                                                context:
+                                                                    context,
+                                                                id: cubit
+                                                                    .categoryItems[
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                                img: cubit
+                                                                        .categoryItems[
+                                                                            index]
+                                                                        .images
+                                                                        ?.first
+                                                                        .image ??
+                                                                    '',
+                                                                title: cubit
+                                                                    .categoryItems[
+                                                                        index]
+                                                                    .title
+                                                                    ?.ar,
+                                                                subTitle: cubit
+                                                                        .categoryItems[
+                                                                            index]
+                                                                        .description
+                                                                        ?.ar ??
+                                                                    '',
+                                                                price: cubit
+                                                                    .categoryItems[
+                                                                        index]
+                                                                    .price
+                                                                    .toString(),
+                                                                onTap: () {
+                                                                  RouteManager
+                                                                      .navigateTo(
+                                                                    ItemDetailsScreen(
+                                                                      categoryItem:
+                                                                          cubit.categoryItems[
+                                                                              index],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                              if (cubit.isLoadingPagination)
-                                                SizedBox(
-                                                  height: 50,
-                                                  child: CustomLoading(),
-                                                )
-                                            ],
-                                          );
-                                        }),
+                                                if (cubit.isLoadingPagination)
+                                                  SizedBox(
+                                                    height: 50,
+                                                    child: CustomLoading(),
+                                                  ),
+                                              ],
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ),
                             ],
